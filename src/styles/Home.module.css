@@ -1,0 +1,49 @@
+.banner {
+  background-image: url("../assets/home-page-banner.jpg");
+  background-position: center;
+  background-size: cover;
+  height: 80vh;
+}
+
+.hero_cont {
+  height: 100%;
+  padding: 140px 0;
+}
+
+.hero {
+  width: 100%;
+}
+.sub_title {
+  color: white;
+}
+.title {
+  color: white;
+  margin-top: 20px;
+  font-size: 70px;
+  font-family: "BebasNeueBook";
+  color: #ffffff;
+  font-weight: 300;
+  margin-bottom: 40px;
+}
+.description {
+  font-size: 14px;
+  line-height: 28px;
+  font-family: "Libre Baskerville", sans-serif;
+  color: #ffffff;
+  font-weight: 400;
+  letter-spacing: 1.12px;
+  max-width: 510px;
+}
+.search_cont {
+  display: flex;
+  justify-content: center;
+  margin-top: 120px;
+}
+.search_cont input {
+  width: 100%;
+  max-width: 600px;
+  padding: 10px 20px;
+  border: 0;
+  outline: 0;
+  border-radius: 8px;
+}
