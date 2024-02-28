@@ -1,3 +1,4 @@
+import ImageList from "../../components/ImageList/ImageList";
 import Layout from "../../components/Layout/Layout";
 import classes from "../../styles/Home.module.css";
 
@@ -22,6 +23,9 @@ const Home = () => {
           </Layout>
         </div>
       </div>
+      <Layout>
+        <ImageList />
+      </Layout>
     </div>
   );
 };
