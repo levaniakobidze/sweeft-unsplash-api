@@ -1,15 +1,22 @@
-import { FC, useContext, useCallback, ChangeEvent } from "react";
+import { FC, useContext, useCallback, ChangeEvent, useEffect } from "react";
 import ImageList from "../../components/ImageList/ImageList";
 import Layout from "../../components/Layout/Layout";
 import classes from "../../styles/Home.module.css";
 import { AppContext, ContextTypes } from "../../context/appContext";
 
 const Home: FC = () => {
-  const { setSearchQuery } = useContext(AppContext) as ContextTypes;
+  const { searchQuery, setSearchQuery, searchHistory, setSearchHistory } =
+    useContext(AppContext) as ContextTypes;
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchQuery(e.target.value);
   };
+
+  useEffect(() => {
+    if (searchQuery) {
+      setSearchHistory([...searchHistory, searchQuery]);
+    }
+  }, [searchQuery]);
 
   const debounce = (
     func: (e: ChangeEvent<HTMLInputElement>) => void,
@@ -25,7 +32,6 @@ const Home: FC = () => {
     };
   };
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   const optimizedFn = useCallback(debounce(handleInputChange, 500), []);
 
   return (

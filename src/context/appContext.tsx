@@ -12,14 +12,20 @@ interface Props {
 export interface ContextTypes {
   searchQuery: string;
   setSearchQuery: Dispatch<SetStateAction<string>>;
+  searchHistory: string[];
+  setSearchHistory: Dispatch<SetStateAction<string[]>>;
 }
 
 export const AppContext = createContext<ContextTypes | null>(null);
 
 const ContextProvider: React.FC<Props> = ({ children }) => {
   const [searchQuery, setSearchQuery] = useState<string>("");
+  const [searchHistory, setSearchHistory] = useState<string[]>([""]);
+
   return (
-    <AppContext.Provider value={{ searchQuery, setSearchQuery }}>
+    <AppContext.Provider
+      value={{ searchQuery, setSearchQuery, searchHistory, setSearchHistory }}
+    >
       {children}
     </AppContext.Provider>
   );
