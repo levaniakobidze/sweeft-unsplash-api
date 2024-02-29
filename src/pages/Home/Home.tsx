@@ -13,7 +13,8 @@ const Home: FC = () => {
   };
 
   useEffect(() => {
-    if (searchQuery) {
+    if (searchQuery && !searchHistory.includes(searchQuery)) {
+      console.log("hap");
       setSearchHistory([...searchHistory, searchQuery]);
     }
   }, [searchQuery]);
