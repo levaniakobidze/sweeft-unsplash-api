@@ -1,8 +1,33 @@
+import { FC, useContext, useCallback, ChangeEvent } from "react";
 import ImageList from "../../components/ImageList/ImageList";
 import Layout from "../../components/Layout/Layout";
 import classes from "../../styles/Home.module.css";
+import { AppContext, ContextTypes } from "../../context/appContext";
 
-const Home = () => {
+const Home: FC = () => {
+  const { setSearchQuery } = useContext(AppContext) as ContextTypes;
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchQuery(e.target.value);
+  };
+
+  const debounce = (
+    func: (e: ChangeEvent<HTMLInputElement>) => void,
+    delay: number
+  ) => {
+    let timer: number | null;
+    return function (e: ChangeEvent<HTMLInputElement>) {
+      if (timer) clearTimeout(timer);
+      timer = setTimeout(() => {
+        timer = null;
+        func(e);
+      }, delay);
+    };
+  };
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const optimizedFn = useCallback(debounce(handleInputChange, 500), []);
+
   return (
     <div className={classes.home}>
       <div className={classes.banner}>
@@ -17,7 +42,11 @@ const Home = () => {
               </p>
 
               <div className={classes.search_cont}>
-                <input type="text" placeholder="Search for the best images" />
+                <input
+                  type="text"
+                  placeholder="Search for the best images"
+                  onChange={optimizedFn}
+                />
               </div>
             </div>
           </Layout>

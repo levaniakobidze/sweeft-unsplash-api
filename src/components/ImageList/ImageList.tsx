@@ -1,5 +1,7 @@
 import classes from "../../styles/ImageList.module.css";
 import { useQuery } from "@tanstack/react-query";
+import { AppContext, ContextTypes } from "../../context/appContext";
+import { FC, useContext } from "react";
 
 const ACCESS_KEY = "V3hDjjYMyCQNwuWAWgdFvo-OrqFRsGK3jjeqh8RbCqU";
 
@@ -20,27 +22,39 @@ const fetchSearchResults = (query: string) => {
     }
   ).then((res) => res.json());
 };
-const ImageList = () => {
+const ImageList: FC = () => {
+  const { searchQuery } = useContext(AppContext) as ContextTypes;
+
   const popularImagesQuery = useQuery({
     queryKey: ["popularImages"],
     queryFn: fetchPopularImages,
   });
   const searchResultsQuery = useQuery({
-    queryKey: ["searchResults"],
-    queryFn: () => fetchSearchResults("beach"),
-    enabled: !!"zebra",
+    queryKey: ["searchResults", searchQuery],
+    queryFn: () => fetchSearchResults(searchQuery),
+    // enabled: !!searchQuery,
+    staleTime: 0,
   });
 
   // eslint-disable-next-line no-constant-condition
-  const imagesToShow = "zebra"
-    ? searchResultsQuery.data
-    : popularImagesQuery.data;
+  const imagesToShow =
+    searchQuery !== "" && searchResultsQuery.data
+      ? searchResultsQuery.data.results
+      : popularImagesQuery.data;
 
   return (
     <div className={classes.image_list}>
       {imagesToShow &&
-        imagesToShow.results.map((image: { urls: { regular: string } }) => {
-          return <img src={image.urls.regular} alt="sd" />;
+        imagesToShow.map((image: { urls: { regular: string } }) => {
+          return searchResultsQuery.isFetching ? (
+            <div className="app">
+              <div className="card">
+                <div className="card__image"></div>
+              </div>
+            </div>
+          ) : (
+            <img src={image.urls.regular} alt="sd" loading="lazy" />
+          );
         })}
     </div>
   );

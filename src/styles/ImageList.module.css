@@ -10,8 +10,8 @@
 }
 .image_list img {
   /* width: 350px;
-  height: 350px;
-  object-fit: cover; */
+  height: 350px; */
+  object-fit: cover;
   width: 100%; /* Ensure each item takes up the full width of its container */
   aspect-ratio: 1; /* Maintain the aspect ratio of the images */
   overflow: hidden; /* Hide any content that overflows the item */
