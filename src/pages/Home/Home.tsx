@@ -1,10 +1,18 @@
-import { FC, useContext, useCallback, ChangeEvent, useEffect } from "react";
+import {
+  FC,
+  useContext,
+  useCallback,
+  ChangeEvent,
+  useEffect,
+  useState,
+} from "react";
 import ImageList from "../../components/ImageList/ImageList";
 import Layout from "../../components/Layout/Layout";
 import classes from "../../styles/Home.module.css";
 import { AppContext, ContextTypes } from "../../context/appContext";
 
 const Home: FC = () => {
+  const [isInputFocus, setIsInputFocus] = useState(false);
   const {
     searchQuery,
     setSearchQuery,
@@ -38,6 +46,7 @@ const Home: FC = () => {
     };
   };
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const optimizedFn = useCallback(debounce(handleInputChange, 500), []);
 
   return (
@@ -54,11 +63,37 @@ const Home: FC = () => {
               </p>
 
               <div className={classes.search_cont}>
-                <input
-                  type="text"
-                  placeholder="Search for the best images"
-                  onChange={optimizedFn}
-                />
+                <div className={classes.search_input_cont}>
+                  <input
+                    type="text"
+                    placeholder="Search for the best images"
+                    onChange={optimizedFn}
+                    onFocus={() => setIsInputFocus(true)}
+                    onBlur={(e) => {
+                      setTimeout(() => {
+                        e.stopPropagation();
+                        setIsInputFocus(false);
+                      }, 600);
+                    }}
+                  />
+                  {!searchQuery && isInputFocus && searchHistory.length > 1 && (
+                    <ul className={classes.search_dropdown}>
+                      {searchHistory.map((word, index) => {
+                        return (
+                          <li
+                            key={index}
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              setSearchQuery(word);
+                            }}
+                          >
+                            {word}
+                          </li>
+                        );
+                      })}
+                    </ul>
+                  )}
+                </div>
               </div>
             </div>
           </Layout>

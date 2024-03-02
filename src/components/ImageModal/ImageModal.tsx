@@ -56,7 +56,6 @@ const ImageModal = () => {
               alt="image"
               onLoad={() => {
                 setIsImageLoaded(true);
-                console.log("loaded");
               }}
             />
           )}
