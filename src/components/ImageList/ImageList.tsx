@@ -1,13 +1,13 @@
 import classes from "../../styles/ImageList.module.css";
 import { AppContext, ContextTypes } from "../../context/appContext";
-import { FC, useContext, useRef } from "react";
+import { FC, useContext } from "react";
 import Image from "../Image/Image";
 import ImageModal from "../ImageModal/ImageModal";
 import { useEffect } from "react";
 import axios from "axios";
 import useFetchImages from "../../hooks/useFetchImages";
+import { ACCESS_KEY } from "../../secrets/secrets";
 
-const ACCESS_KEY = "V3hDjjYMyCQNwuWAWgdFvo-OrqFRsGK3jjeqh8RbCqU";
 const headers = {
   Authorization: `Client-ID ${ACCESS_KEY}`,
 };
@@ -16,7 +16,6 @@ const ImageList: FC = () => {
   const { setData, searchQuery, showModal, pageNum, setHasMore } = useContext(
     AppContext
   ) as ContextTypes;
-
   const { data, loading, hasMore } = useFetchImages(searchQuery, pageNum);
 
   const fetchPopularImages = async () => {

@@ -5,14 +5,21 @@ import { FaThumbsUp } from "react-icons/fa";
 import { FaDownload } from "react-icons/fa";
 import { FaEye } from "react-icons/fa";
 import axios from "axios";
+import { ACCESS_KEY } from "../../secrets/secrets";
 
-const ACCESS_KEY = "V3hDjjYMyCQNwuWAWgdFvo-OrqFRsGK3jjeqh8RbCqU";
+interface ImageTypes {
+  urls: { full: string };
+  likes: number;
+  downloads: number;
+  views: number;
+  tags: { title: string }[];
+}
 
 const ImageModal = () => {
   const { setShowModal, photoId, setSearchQuery, setSearchHistory } =
     useContext(AppContext) as ContextTypes;
   const [isImageLoaded, setIsImageLoaded] = useState(false);
-  const [data, setData] = useState({});
+  const [data, setData] = useState<ImageTypes | null>(null);
 
   const fetchImage = async (id: string) => {
     try {
@@ -49,7 +56,7 @@ const ImageModal = () => {
               <span className="loader"></span>
             </div>
           )}
-          {data.urls && (
+          {data && data.urls && (
             <img
               className={classes.full_image}
               src={data.urls.full}
@@ -78,7 +85,8 @@ const ImageModal = () => {
         )}
         <div>
           <ul className={classes.tags_list}>
-            {data.tags &&
+            {data &&
+              data.tags &&
               data.tags.map((tag: { title: string }, index: number) => {
                 return (
                   <li

@@ -1,35 +1,55 @@
 import classes from "../../styles/Image.module.css";
 import { AppContext, ContextTypes } from "../../context/appContext";
-import { useCallback, useContext, useRef } from "react";
+import { FC, RefCallback, useCallback, useContext } from "react";
 
-const Image = ({
-  url,
-  id,
-  index,
-  loading,
-  hasMore,
-}: {
+interface Iprops {
   url: string;
   id: string;
   index: number;
   loading: boolean;
   hasMore: boolean;
-}) => {
+}
+
+const Image: FC<Iprops> = ({ url, id, index, loading, hasMore }) => {
   const { setShowModal, setPhotoId, data, setPageNum } = useContext(
     AppContext
   ) as ContextTypes;
-  const observer = useRef();
+  // const observer = useRef();
 
-  const lastImageElementRef = useCallback(
+  // const lastImageElementRef = useCallback(
+  //   (node) => {
+  //     if (loading) return;
+  //     if (observer.current) observer.current.disconnect();
+  //     observer.current = new IntersectionObserver((entries) => {
+  //       if (entries[0].isIntersecting && hasMore) {
+  //         console.log("Visible");
+  //         setPageNum((prev) => prev + 1);
+  //       }
+  //     });
+  //     if (node) observer.current.observe(node);
+  //   },
+  //   [loading, hasMore]
+  // );
+
+  type LastElementRefProps = RefCallback<Element>;
+
+  const lastElementRef: LastElementRefProps = useCallback(
     (node) => {
       if (loading) return;
+
+      // Initialize the observer with a default value (or the appropriate type)
+      const observer = { current: null as IntersectionObserver | null };
+
       if (observer.current) observer.current.disconnect();
-      observer.current = new IntersectionObserver((entries) => {
-        if (entries[0].isIntersecting && hasMore) {
-          console.log("Visible");
-          setPageNum((prev) => prev + 1);
+      observer.current = new IntersectionObserver(
+        (entries: IntersectionObserverEntry[]) => {
+          if (entries[0].isIntersecting && hasMore) {
+            console.log("Visible");
+            setPageNum((prev) => prev + 1);
+          }
         }
-      });
+      );
+
       if (node) observer.current.observe(node);
     },
     [loading, hasMore]
@@ -44,7 +64,7 @@ const Image = ({
     >
       {data.length == index + 1 ? (
         <img
-          ref={lastImageElementRef}
+          ref={lastElementRef}
           src={url}
           className={classes.image}
           alt="image"
