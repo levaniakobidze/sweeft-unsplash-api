@@ -1,6 +1,5 @@
-<div style="background-color: #ffe4e1; padding: 10px; border: 1px solid #dc3545; border-radius: 5px;">
-  <strong>Warning!</strong> This is a warning message.
-</div>
+````markdown
+⚠️ **Warning:** This is a warning message.
 
 ```js
 export default {
@@ -13,6 +12,7 @@ export default {
   },
 };
 ```
+````
 
 - Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
 - Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
