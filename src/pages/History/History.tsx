@@ -1,43 +1,50 @@
+import { useContext, useState } from "react";
 import classes from "../../styles/History.module.css";
 import Layout from "../../components/Layout/Layout";
 import ImageList from "../../components/ImageList/ImageList";
 import { AppContext, ContextTypes } from "../../context/appContext";
-import { useContext, useState } from "react";
 
 const History = () => {
   const { searchHistory, setSearchHistory, setSearchQuery } = useContext(
     AppContext
   ) as ContextTypes;
+
   const [activeIdx, setActiveIdx] = useState(1);
+
+  const handleHistoryItemClick = (word: string, idx: number) => {
+    setSearchQuery(word);
+    setActiveIdx(idx);
+  };
+
+  const handleClearHistory = () => {
+    setSearchHistory([]);
+  };
 
   return (
     <div className={classes.history}>
       <Layout>
         <ul className={classes.history_list}>
-          {searchHistory.map((word: string, idx: number) => {
-            return (
+          {searchHistory.map(
+            (word: string, idx: number) =>
               word && (
-                <div
-                  className={`${classes.history_word} ${
-                    activeIdx === idx && classes.history_word_active
-                  }`}
-                  onClick={() => {
-                    setSearchQuery(word);
-                    setActiveIdx(idx);
-                  }}
-                >
-                  {word}
-                </div>
+                <li key={idx}>
+                  <div
+                    className={`${classes.history_word} ${
+                      activeIdx === idx && classes.history_word_active
+                    }`}
+                    onClick={() => handleHistoryItemClick(word, idx)}
+                  >
+                    {word}
+                  </div>
+                </li>
               )
-            );
-          })}
+          )}
           {searchHistory.length > 1 && (
-            <span
-              className={classes.delete}
-              onClick={() => setSearchHistory([])}
-            >
-              x
-            </span>
+            <li>
+              <span className={classes.delete} onClick={handleClearHistory}>
+                x
+              </span>
+            </li>
           )}
         </ul>
         <ImageList />

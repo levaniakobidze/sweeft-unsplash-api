@@ -1,5 +1,5 @@
-import {
-  FC,
+import React, {
+  FunctionComponent,
   useContext,
   useCallback,
   ChangeEvent,
@@ -11,7 +11,7 @@ import Layout from "../../components/Layout/Layout";
 import classes from "../../styles/Home.module.css";
 import { AppContext, ContextTypes } from "../../context/appContext";
 
-const Home: FC = () => {
+const Home: FunctionComponent = () => {
   const [isInputFocus, setIsInputFocus] = useState(false);
   const {
     searchQuery,
@@ -21,7 +21,7 @@ const Home: FC = () => {
     setPageNum,
   } = useContext(AppContext) as ContextTypes;
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     setSearchQuery(e.target.value);
     setPageNum(1);
   };
@@ -30,7 +30,7 @@ const Home: FC = () => {
     if (searchQuery && !searchHistory.includes(searchQuery)) {
       setSearchHistory([...searchHistory, searchQuery]);
     }
-  }, [searchQuery]);
+  }, [searchQuery, searchHistory, setSearchHistory]);
 
   const debounce = (
     func: (e: ChangeEvent<HTMLInputElement>) => void,
@@ -46,8 +46,22 @@ const Home: FC = () => {
     };
   };
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   const optimizedFn = useCallback(debounce(handleInputChange, 500), []);
+
+  const handleInputFocus = () => {
+    setIsInputFocus(true);
+  };
+
+  const handleInputBlur = (e: React.FocusEvent<HTMLInputElement>) => {
+    setTimeout(() => {
+      e.stopPropagation();
+      setIsInputFocus(false);
+    }, 600);
+  };
+
+  const handleDropdownItemClick = (word: string) => {
+    setSearchQuery(word);
+  };
 
   return (
     <div className={classes.home}>
@@ -67,30 +81,23 @@ const Home: FC = () => {
                   <input
                     type="text"
                     placeholder="Search for the best images"
-                    onChange={optimizedFn}
-                    onFocus={() => setIsInputFocus(true)}
-                    onBlur={(e) => {
-                      setTimeout(() => {
-                        e.stopPropagation();
-                        setIsInputFocus(false);
-                      }, 600);
-                    }}
+                    onInput={optimizedFn}
+                    onFocus={handleInputFocus}
+                    onBlur={handleInputBlur}
                   />
                   {!searchQuery && isInputFocus && searchHistory.length > 1 && (
                     <ul className={classes.search_dropdown}>
-                      {searchHistory.map((word, index) => {
-                        return (
-                          <li
-                            key={index}
-                            onClick={(e) => {
-                              e.stopPropagation();
-                              setSearchQuery(word);
-                            }}
-                          >
-                            {word}
-                          </li>
-                        );
-                      })}
+                      {searchHistory.map((word, index) => (
+                        <li
+                          key={index}
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            handleDropdownItemClick(word);
+                          }}
+                        >
+                          {word}
+                        </li>
+                      ))}
                     </ul>
                   )}
                 </div>
