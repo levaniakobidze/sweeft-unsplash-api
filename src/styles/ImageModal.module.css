@@ -1,0 +1,39 @@
+.image_modal_overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow-y: scroll;
+}
+
+.image_modal_cont {
+  width: 100%;
+  max-width: 1300px;
+  padding: 120px;
+  height: 120vh;
+  margin-top: 300px;
+  background-color: white;
+  border-radius: 8px;
+}
+.spinner_cont {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.full_image_cont {
+  width: 100%;
+  height: 100%;
+}
+.full_image {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}

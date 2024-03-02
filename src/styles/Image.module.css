@@ -1,0 +1,19 @@
+.image_cont {
+  position: relative;
+  overflow: hidden;
+  border-radius: 8px;
+}
+.image {
+  object-fit: cover;
+  width: 100%;
+  aspect-ratio: 1;
+  overflow: hidden;
+  border-radius: 8px;
+  transition: all 1s;
+  transform: transform 2 ease-in-out;
+  cursor: pointer;
+}
+
+.image:hover {
+  transform: scale(1.2);
+}

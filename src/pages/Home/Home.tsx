@@ -5,16 +5,21 @@ import classes from "../../styles/Home.module.css";
 import { AppContext, ContextTypes } from "../../context/appContext";
 
 const Home: FC = () => {
-  const { searchQuery, setSearchQuery, searchHistory, setSearchHistory } =
-    useContext(AppContext) as ContextTypes;
+  const {
+    searchQuery,
+    setSearchQuery,
+    searchHistory,
+    setSearchHistory,
+    setPageNum,
+  } = useContext(AppContext) as ContextTypes;
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchQuery(e.target.value);
+    setPageNum(1);
   };
 
   useEffect(() => {
     if (searchQuery && !searchHistory.includes(searchQuery)) {
-      console.log("hap");
       setSearchHistory([...searchHistory, searchQuery]);
     }
   }, [searchQuery]);
