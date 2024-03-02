@@ -36,10 +36,7 @@ const Image: FC<Iprops> = ({ url, id, index, loading, hasMore }) => {
   const lastElementRef: LastElementRefProps = useCallback(
     (node) => {
       if (loading) return;
-
-      // Initialize the observer with a default value (or the appropriate type)
       const observer = { current: null as IntersectionObserver | null };
-
       if (observer.current) observer.current.disconnect();
       observer.current = new IntersectionObserver(
         (entries: IntersectionObserverEntry[]) => {
@@ -49,7 +46,6 @@ const Image: FC<Iprops> = ({ url, id, index, loading, hasMore }) => {
           }
         }
       );
-
       if (node) observer.current.observe(node);
     },
     [loading, hasMore]

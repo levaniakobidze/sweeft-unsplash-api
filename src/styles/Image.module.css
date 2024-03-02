@@ -1,8 +1,6 @@
 .image_cont {
-  position: relative;
   overflow: hidden;
   border-radius: 8px;
-  z-index: -100;
 }
 
 .image {
