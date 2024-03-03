@@ -46,6 +46,10 @@ const searchHistoryFromStorageRaw = localStorage.getItem("search_history");
 const searchHistoryFromStorage = searchHistoryFromStorageRaw
   ? JSON.parse(searchHistoryFromStorageRaw)
   : [];
+const apiCacheFromStorageRaw = localStorage.getItem("api_cache");
+const apiCacheFromStorage = apiCacheFromStorageRaw
+  ? JSON.parse(apiCacheFromStorageRaw)
+  : [];
 const ContextProvider: React.FC<Props> = ({ children }) => {
   const [searchQuery, setSearchQuery] = useState<string>("");
   const [searchHistory, setSearchHistory] = useState<string[]>(
@@ -56,7 +60,9 @@ const ContextProvider: React.FC<Props> = ({ children }) => {
   const [data, setData] = useState<ImagData[]>([]);
   const [pageNum, setPageNum] = useState(1);
   const [hasMore, setHasMore] = useState<boolean>(false);
-  const [apiCache, setApiCache] = useState<IpiCache[]>([]);
+  const [apiCache, setApiCache] = useState<IpiCache[]>(
+    apiCacheFromStorage ? apiCacheFromStorage : []
+  );
 
   const cacheData = (query: string, data: ImagData[]) => {
     setApiCache((prevCache) => [...prevCache, { query, data }]);
@@ -64,7 +70,9 @@ const ContextProvider: React.FC<Props> = ({ children }) => {
 
   useEffect(() => {
     const jsonSearchHistory = JSON.stringify(searchHistory);
+    const jsonApiCache = JSON.stringify(apiCache);
     window.localStorage.setItem("search_history", jsonSearchHistory);
+    window.localStorage.setItem("api_cache", jsonApiCache);
   }, [searchHistory]);
 
   return (

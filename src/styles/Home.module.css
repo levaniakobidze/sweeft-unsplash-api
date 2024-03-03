@@ -3,12 +3,12 @@
     url("../assets/home-page-banner.jpg");
   background-position: center;
   background-size: cover;
-  height: 80vh;
+  height: auto;
 }
 
 .hero_cont {
   height: 100%;
-  padding: 140px 0;
+  padding: 100px 0;
 }
 
 .hero {
@@ -90,6 +90,12 @@
 }
 
 /* Responsive styles */
+
+@media (max-width: 1640px) {
+  .banner {
+    /* height: 80vh; */
+  }
+}
 @media (max-width: 768px) {
   .hero_cont {
     padding: 100px 0;
@@ -115,7 +121,6 @@
   .banner {
     background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.15)),
       url("../assets/banner-mobile.avif");
-    height: 70vh;
   }
   .title {
     margin-top: 20px;
