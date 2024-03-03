@@ -10,9 +10,8 @@ const headers = {
 const useFetchImages = (query: string, pageNum: number) => {
   const endpoint = `https://api.unsplash.com/search/photos?query=${query}&per_page=20&page=${pageNum}`;
   const [loading, setLoading] = useState(false);
-  const { data, setData, setHasMore, hasMore } = useContext(
-    AppContext
-  ) as ContextTypes;
+  const { data, setData, setHasMore, hasMore, apiCache, cacheData } =
+    useContext(AppContext) as ContextTypes;
 
   useEffect(() => {
     setData([]);
@@ -20,16 +19,26 @@ const useFetchImages = (query: string, pageNum: number) => {
 
   useEffect(() => {
     setLoading(true);
-    axios
-      .get(endpoint, { headers })
-      .then((res) => {
-        setLoading(false);
-        setHasMore(true);
-        setData((prev) => [...prev, ...res.data.results]);
-      })
-      .catch((err) => {
-        if (axios.isCancel(err)) return;
-      });
+    const cachedResult = apiCache.find((item) => item.query === query);
+    if (cachedResult && pageNum === 1) {
+      setData(cachedResult.data);
+      setLoading(false);
+      setHasMore(true);
+      console.log("useed cached data");
+    } else {
+      console.log("useed axios data");
+      axios
+        .get(endpoint, { headers })
+        .then((res) => {
+          setLoading(false);
+          setHasMore(true);
+          setData((prev) => [...prev, ...res.data.results]);
+          cacheData(query, res.data.results);
+        })
+        .catch((err) => {
+          if (axios.isCancel(err)) return;
+        });
+    }
   }, [query, pageNum]);
   return { loading, data, hasMore };
 };

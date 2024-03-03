@@ -31,6 +31,9 @@ export interface ContextTypes {
   setPageNum: Dispatch<SetStateAction<number>>;
   hasMore: boolean;
   setHasMore: Dispatch<SetStateAction<boolean>>;
+  apiCache: ImagData[];
+  setApiCache: Dispatch<SetStateAction<ImagData[]>>;
+  cacheData: () => void;
 }
 
 export const AppContext = createContext<ContextTypes | null>(null);
@@ -43,6 +46,11 @@ const ContextProvider: React.FC<Props> = ({ children }) => {
   const [data, setData] = useState<ImagData[]>([]);
   const [pageNum, setPageNum] = useState(1);
   const [hasMore, setHasMore] = useState<boolean>(false);
+  const [apiCache, setApiCache] = useState<ImagData[]>([]);
+
+  const cacheData = (query: string, data: ImagData[]) => {
+    setApiCache((prevCache) => [...prevCache, { query, data }]);
+  };
 
   return (
     <AppContext.Provider
@@ -61,6 +69,9 @@ const ContextProvider: React.FC<Props> = ({ children }) => {
         pageNum,
         hasMore,
         setHasMore,
+        apiCache,
+        setApiCache,
+        cacheData,
       }}
     >
       {children}

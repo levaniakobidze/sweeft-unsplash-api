@@ -5,15 +5,15 @@ import ImageList from "../../components/ImageList/ImageList";
 import { AppContext, ContextTypes } from "../../context/appContext";
 
 const History = () => {
-  const { searchHistory, setSearchHistory, setSearchQuery } = useContext(
-    AppContext
-  ) as ContextTypes;
+  const { searchHistory, setSearchHistory, setSearchQuery, setPageNum } =
+    useContext(AppContext) as ContextTypes;
 
   const [activeIdx, setActiveIdx] = useState(1);
 
   const handleHistoryItemClick = (word: string, idx: number) => {
     setSearchQuery(word);
     setActiveIdx(idx);
+    setPageNum(1);
   };
 
   const handleClearHistory = () => {
