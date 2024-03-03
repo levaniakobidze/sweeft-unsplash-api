@@ -1,4 +1,4 @@
-import React, { FC, useContext } from "react";
+import { FC, useContext } from "react";
 import classes from "../../styles/ImageList.module.css";
 import { AppContext, ContextTypes } from "../../context/appContext";
 import Image from "../Image/Image";

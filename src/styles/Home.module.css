@@ -87,3 +87,45 @@
 .search_dropdown li:hover {
   background-color: rgba(219, 219, 219, 0.416);
 }
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  .hero_cont {
+    padding: 100px 0;
+  }
+  .sub_title {
+    color: white;
+  }
+  .title {
+    margin-top: 20px;
+    margin-bottom: 10px;
+    font-size: 60px;
+  }
+  .description {
+    font-size: 14px;
+    width: 70%;
+  }
+  .search_cont {
+    margin-top: 70px;
+  }
+}
+
+@media (max-width: 576px) {
+  .banner {
+    background-image: url("../assets/banner-mobile.avif");
+  }
+  .title {
+    margin-top: 20px;
+    margin-bottom: 10px;
+    font-size: 40px;
+  }
+  .description {
+    font-size: 14px;
+  }
+  .search_cont {
+    margin-top: 70px;
+  }
+  .search_input_cont {
+    max-width: 90%;
+  }
+}
