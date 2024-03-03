@@ -16,6 +16,10 @@ interface ImagData {
     full: string;
   };
 }
+interface IpiCache {
+  query: string;
+  data: ImagData[];
+}
 export interface ContextTypes {
   searchQuery: string;
   setSearchQuery: Dispatch<SetStateAction<string>>;
@@ -31,9 +35,9 @@ export interface ContextTypes {
   setPageNum: Dispatch<SetStateAction<number>>;
   hasMore: boolean;
   setHasMore: Dispatch<SetStateAction<boolean>>;
-  apiCache: ImagData[];
-  setApiCache: Dispatch<SetStateAction<ImagData[]>>;
-  cacheData: () => void;
+  apiCache: IpiCache[];
+  setApiCache: Dispatch<SetStateAction<IpiCache[]>>;
+  cacheData: (query: string, data: ImagData[]) => void;
 }
 
 export const AppContext = createContext<ContextTypes | null>(null);
@@ -46,7 +50,7 @@ const ContextProvider: React.FC<Props> = ({ children }) => {
   const [data, setData] = useState<ImagData[]>([]);
   const [pageNum, setPageNum] = useState(1);
   const [hasMore, setHasMore] = useState<boolean>(false);
-  const [apiCache, setApiCache] = useState<ImagData[]>([]);
+  const [apiCache, setApiCache] = useState<IpiCache[]>([]);
 
   const cacheData = (query: string, data: ImagData[]) => {
     setApiCache((prevCache) => [...prevCache, { query, data }]);

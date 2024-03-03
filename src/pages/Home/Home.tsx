@@ -79,7 +79,7 @@ const Home: FunctionComponent = () => {
               <div className={classes.search_cont}>
                 <div className={classes.search_input_cont}>
                   <input
-                    type="text"
+                    type="search"
                     placeholder="Search for the best images"
                     onInput={optimizedFn}
                     onFocus={handleInputFocus}

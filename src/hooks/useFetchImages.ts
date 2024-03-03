@@ -24,9 +24,7 @@ const useFetchImages = (query: string, pageNum: number) => {
       setData(cachedResult.data);
       setLoading(false);
       setHasMore(true);
-      console.log("useed cached data");
     } else {
-      console.log("useed axios data");
       axios
         .get(endpoint, { headers })
         .then((res) => {
