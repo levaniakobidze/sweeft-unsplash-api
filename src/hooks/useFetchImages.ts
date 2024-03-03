@@ -30,7 +30,6 @@ const useFetchImages = (query: string, pageNum: number) => {
       setData(cachedResult.data);
       setLoading(false);
       setHasMore(true);
-      // scrollIntoImageListView();
     } else {
       axios
         .get(endpoint, { headers })
