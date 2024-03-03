@@ -3,20 +3,28 @@
 > ქეშირების სისტემის გაკეთება ბევრად მარტივად შეიძლებოდა React-query - ის გამოყენებთ
 > თუმცა თქვენი მოთხოვნის შესაბამისად 0 - დან დავწერე useState - ის დახმარებით
 
-# React App Starter
+## Folder Structure
 
-This repository contains a simple React app that you can clone and use as a starting point for your project.
+The project structure is organized as follows:
 
-## Table of Contents
+````plaintext
+react-app-starter/
+  ├── public/
+  ├── src/
+  │   ├── components/
+  │   ├── context/
+  │   ├── hooks/
+  │   ├── pages/
+  │   ├── secrets/
+  │   ├── styles/
+  │   ├── types/
+  │   ├── App.tsx
+  │   ├── main.tsx
+  │   └── ...
+  ├── .gitignore
+  ├── package.json
+  └── README.md
 
-- [Prerequisites](#prerequisites)
-- [Getting Started](#getting-started)
-  - [Clone the Repository](#clone-the-repository)
-  - [Install Dependencies](#install-dependencies)
-  - [Start the Development Server](#start-the-development-server)
-- [Folder Structure](#folder-structure)
-- [Available Scripts](#available-scripts)
-- [License](#license)
 
 ## Prerequisites
 
@@ -25,13 +33,13 @@ Before you begin, ensure you have the following tools installed on your machine:
 - [Node.js](https://nodejs.org/)
 - [npm](https://www.npmjs.com/) (Node.js package manager)
 
-## Getting Started
+## Installation and Setup
 
-Follow these steps to get the project up and running on your local machine.
-
-### Clone the Repository
-
-```bash
-git clone https://github.com/your-username/react-app-starter.git
-
-```
+1. **Clone the Repository**
+   ```bash
+   git clone https://github.com/levaniakobidze/sweeft-unsplash-api.git
+   cd sweeft-react-program
+   npm install
+   npm start
+   ```
+````
