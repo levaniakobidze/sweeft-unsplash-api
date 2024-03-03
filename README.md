@@ -7,7 +7,7 @@
 
 The project structure is organized as follows:
 
-````plaintext
+```plaintext
 react-app-starter/
   ├── public/
   ├── src/
@@ -24,7 +24,7 @@ react-app-starter/
   ├── .gitignore
   ├── package.json
   └── README.md
-
+```
 
 ## Prerequisites
 
@@ -42,4 +42,3 @@ Before you begin, ensure you have the following tools installed on your machine:
    npm install
    npm start
    ```
-````
