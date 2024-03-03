@@ -4,6 +4,7 @@ import {
   ReactNode,
   Dispatch,
   SetStateAction,
+  useEffect,
 } from "react";
 interface Props {
   children: ReactNode;
@@ -41,10 +42,15 @@ export interface ContextTypes {
 }
 
 export const AppContext = createContext<ContextTypes | null>(null);
-
+const searchHistoryFromStorageRaw = localStorage.getItem("search_history");
+const searchHistoryFromStorage = searchHistoryFromStorageRaw
+  ? JSON.parse(searchHistoryFromStorageRaw)
+  : [];
 const ContextProvider: React.FC<Props> = ({ children }) => {
   const [searchQuery, setSearchQuery] = useState<string>("");
-  const [searchHistory, setSearchHistory] = useState<string[]>([""]);
+  const [searchHistory, setSearchHistory] = useState<string[]>(
+    searchHistoryFromStorage ? searchHistoryFromStorage : [""]
+  );
   const [showModal, setShowModal] = useState<boolean>(false);
   const [photoId, setPhotoId] = useState<string>("");
   const [data, setData] = useState<ImagData[]>([]);
@@ -55,6 +61,11 @@ const ContextProvider: React.FC<Props> = ({ children }) => {
   const cacheData = (query: string, data: ImagData[]) => {
     setApiCache((prevCache) => [...prevCache, { query, data }]);
   };
+
+  useEffect(() => {
+    const jsonSearchHistory = JSON.stringify(searchHistory);
+    window.localStorage.setItem("search_history", jsonSearchHistory);
+  }, [searchHistory]);
 
   return (
     <AppContext.Provider

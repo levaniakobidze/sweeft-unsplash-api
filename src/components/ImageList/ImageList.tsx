@@ -27,7 +27,7 @@ const ImageList: FC = () => {
         </div>
       ) : (
         <Image
-          key={index}
+          key={image.id}
           url={image.urls.regular}
           id={image.id}
           index={index}
@@ -41,7 +41,7 @@ const ImageList: FC = () => {
   return (
     <>
       {showModal && <ImageModal />}
-      <div className={classes.image_list}>
+      <div id="image_list" className={classes.image_list}>
         {Array.isArray(data) && data.length > 0 && data.map(renderImage)}
       </div>
     </>

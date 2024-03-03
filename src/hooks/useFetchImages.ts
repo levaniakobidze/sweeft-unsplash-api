@@ -13,6 +13,12 @@ const useFetchImages = (query: string, pageNum: number) => {
   const { data, setData, setHasMore, hasMore, apiCache, cacheData } =
     useContext(AppContext) as ContextTypes;
 
+  const scrollIntoImageListView = () => {
+    document
+      .querySelector(`#image_list`)
+      ?.scrollIntoView({ behavior: "smooth" });
+  };
+
   useEffect(() => {
     setData([]);
   }, [query]);
@@ -24,6 +30,8 @@ const useFetchImages = (query: string, pageNum: number) => {
       setData(cachedResult.data);
       setLoading(false);
       setHasMore(true);
+      scrollIntoImageListView();
+      console.log("happend");
     } else {
       axios
         .get(endpoint, { headers })
@@ -32,6 +40,7 @@ const useFetchImages = (query: string, pageNum: number) => {
           setHasMore(true);
           setData((prev) => [...prev, ...res.data.results]);
           cacheData(query, res.data.results);
+          scrollIntoImageListView();
         })
         .catch((err) => {
           if (axios.isCancel(err)) return;

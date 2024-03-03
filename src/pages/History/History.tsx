@@ -46,6 +46,9 @@ const History = () => {
               </span>
             </li>
           )}
+          {searchHistory.length === 0 && (
+            <p className={classes.no_searches}>No recent searches.</p>
+          )}
         </ul>
         <ImageList />
       </Layout>
