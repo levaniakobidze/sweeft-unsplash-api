@@ -1,13 +1,13 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useContext } from "react";
-import { AppContext, ContextTypes } from "../context/appContext";
+import { AppContext } from "../context/appContext";
+import { ContextTypes } from "../types";
 import axios from "axios";
 import { ACCESS_KEY } from "../secrets/secrets";
 
 const headers = {
   Authorization: `Client-ID ${ACCESS_KEY}`,
 };
-
 const useFetchPopularImages = (searchQuery: string | null) => {
   const { setData, setHasMore } = useContext(AppContext) as ContextTypes;
   useEffect(() => {

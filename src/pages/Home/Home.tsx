@@ -9,7 +9,8 @@ import React, {
 import ImageList from "../../components/ImageList/ImageList";
 import Layout from "../../components/Layout/Layout";
 import classes from "../../styles/Home.module.css";
-import { AppContext, ContextTypes } from "../../context/appContext";
+import { AppContext } from "../../context/appContext";
+import { ContextTypes } from "../../types";
 
 const Home: FunctionComponent = () => {
   const [isInputFocus, setIsInputFocus] = useState(false);
@@ -30,7 +31,7 @@ const Home: FunctionComponent = () => {
     if (searchQuery && !searchHistory.includes(searchQuery)) {
       setSearchHistory([...searchHistory, searchQuery]);
     }
-  }, [searchQuery, searchHistory, setSearchHistory]);
+  }, [searchQuery, searchHistory]);
 
   const debounce = (
     func: (e: ChangeEvent<HTMLInputElement>) => void,

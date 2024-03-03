@@ -1,11 +1,13 @@
 import classes from "../../styles/ImageModal.module.css";
-import { AppContext, ContextTypes } from "../../context/appContext";
+import { AppContext } from "../../context/appContext";
+import { ContextTypes } from "../../types";
 import { useContext, useEffect, useState } from "react";
 import { FaThumbsUp } from "react-icons/fa";
 import { FaDownload } from "react-icons/fa";
 import { FaEye } from "react-icons/fa";
 import axios from "axios";
 import { ACCESS_KEY } from "../../secrets/secrets";
+import { FaTimes } from "react-icons/fa";
 
 interface ImageTypes {
   urls: { full: string };
@@ -50,6 +52,12 @@ const ImageModal = () => {
         className={classes.image_modal_cont}
         onClick={(e) => e.stopPropagation()}
       >
+        <div
+          className={classes.close_modal}
+          onClick={() => setShowModal(false)}
+        >
+          <FaTimes />
+        </div>
         <div className={classes.full_image_cont}>
           {!isImageLoaded && (
             <div className={classes.spinner_cont}>

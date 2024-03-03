@@ -1,5 +1,6 @@
 import { useContext, useEffect, useState } from "react";
-import { AppContext, ContextTypes } from "../context/appContext";
+import { AppContext } from "../context/appContext";
+import { ContextTypes } from "../types";
 import { ACCESS_KEY } from "../secrets/secrets";
 import axios from "axios";
 

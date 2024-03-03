@@ -1,6 +1,7 @@
 import { FC, useContext } from "react";
 import classes from "../../styles/ImageList.module.css";
-import { AppContext, ContextTypes } from "../../context/appContext";
+import { AppContext } from "../../context/appContext";
+import { ContextTypes } from "../../types";
 import Image from "../Image/Image";
 import ImageModal from "../ImageModal/ImageModal";
 import useFetchImages from "../../hooks/useFetchImages";

@@ -1,5 +1,6 @@
 import classes from "../../styles/Image.module.css";
-import { AppContext, ContextTypes } from "../../context/appContext";
+import { AppContext } from "../../context/appContext";
+import { ContextTypes } from "../../types";
 import { FC, RefCallback, useCallback, useContext } from "react";
 
 interface Iprops {
@@ -14,22 +15,6 @@ const Image: FC<Iprops> = ({ url, id, index, loading, hasMore }) => {
   const { setShowModal, setPhotoId, data, setPageNum } = useContext(
     AppContext
   ) as ContextTypes;
-  // const observer = useRef();
-
-  // const lastImageElementRef = useCallback(
-  //   (node) => {
-  //     if (loading) return;
-  //     if (observer.current) observer.current.disconnect();
-  //     observer.current = new IntersectionObserver((entries) => {
-  //       if (entries[0].isIntersecting && hasMore) {
-  //         console.log("Visible");
-  //         setPageNum((prev) => prev + 1);
-  //       }
-  //     });
-  //     if (node) observer.current.observe(node);
-  //   },
-  //   [loading, hasMore]
-  // );
 
   type LastElementRefProps = RefCallback<Element>;
 
@@ -41,7 +26,6 @@ const Image: FC<Iprops> = ({ url, id, index, loading, hasMore }) => {
       observer.current = new IntersectionObserver(
         (entries: IntersectionObserverEntry[]) => {
           if (entries[0].isIntersecting && hasMore) {
-            console.log("Visible");
             setPageNum((prev) => prev + 1);
           }
         }

@@ -2,12 +2,12 @@ import { useContext, useState } from "react";
 import classes from "../../styles/History.module.css";
 import Layout from "../../components/Layout/Layout";
 import ImageList from "../../components/ImageList/ImageList";
-import { AppContext, ContextTypes } from "../../context/appContext";
+import { AppContext } from "../../context/appContext";
+import { ContextTypes } from "../../types";
 
 const History = () => {
   const { searchHistory, setSearchHistory, setSearchQuery, setPageNum } =
     useContext(AppContext) as ContextTypes;
-
   const [activeIdx, setActiveIdx] = useState(1);
 
   const handleHistoryItemClick = (word: string, idx: number) => {
