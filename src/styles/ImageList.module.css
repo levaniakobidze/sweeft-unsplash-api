@@ -5,3 +5,9 @@
   gap: 16px;
   min-height: 100vh;
 }
+
+@media all and (max-width: 576px) {
+  .image_list {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
