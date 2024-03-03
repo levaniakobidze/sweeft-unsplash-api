@@ -40,6 +40,9 @@ const useFetchImages = (query: string, pageNum: number) => {
           setData((prev) => [...prev, ...res.data.results]);
           cacheData(query, res.data.results);
           scrollIntoImageListView();
+          if (res.data.results.length === 0) {
+            setHasMore(false);
+          }
         })
         .catch((err) => {
           if (axios.isCancel(err)) return;

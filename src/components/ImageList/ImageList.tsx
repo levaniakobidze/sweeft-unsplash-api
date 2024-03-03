@@ -43,7 +43,13 @@ const ImageList: FC = () => {
     <>
       {showModal && <ImageModal />}
       <div id="image_list" className={classes.image_list}>
-        {Array.isArray(data) && data.length > 0 && data.map(renderImage)}
+        {Array.isArray(data) && data.length > 0 ? (
+          data.map(renderImage)
+        ) : (
+          <div>
+            <span>Images not found</span>
+          </div>
+        )}
       </div>
     </>
   );
