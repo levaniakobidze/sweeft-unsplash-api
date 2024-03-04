@@ -39,7 +39,9 @@ const useFetchImages = (query: string, pageNum: number) => {
           setHasMore(true);
           setData((prev) => [...prev, ...res.data.results]);
           cacheData(query, res.data.results);
-          scrollIntoImageListView();
+          if (pageNum === 1) {
+            scrollIntoImageListView();
+          }
           if (res.data.results.length === 0) {
             setHasMore(false);
           }
